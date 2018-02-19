@@ -1,0 +1,17 @@
+div#surveyElement1 {
+    position: absolute;
+    width: 640px;
+    top: 50px;
+    display:none;
+}
+
+div#surveyElement2 {
+    position: absolute;
+    width: 640px;
+    top: 50px;
+    display:none;
+}
+
+video {
+	position: relative
+}
