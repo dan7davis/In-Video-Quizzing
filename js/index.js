@@ -1,5 +1,13 @@
+ 
+
+////////////////////////////////////////////////////////
+//                Setting Video Markers               //
+////////////////////////////////////////////////////////
+
  // load video object
-      var video = videojs('example_video_1');
+      var video = videojs('example_video_1', {
+        "playbackRates": [ 0.25, 0.5, 1, 1.5, 2]
+      });
 
       //load markers
       video.markers({
@@ -9,33 +17,6 @@
         ]
       });
 
-
-
-// From https://stackoverflow.com/questions/29618851/how-can-i-listen-for-the-timeupdate-event-from-my-video-js-player
-var curt;
-video.ready(function () {
-  this.on('timeupdate', function () {
-    curt = this.currentTime();
-  })
-});
-
-
-function checkk() {
-  if (curt >= 149 && curt <= 151) {
-    console.log("Quiz");
-    video.pause();
-    $("#surveyElement1").css("display","block")
-  } else if (curt >=369 && curt <= 371) {
-    console.log("Quiz");
-    video.pause();
-    $("#surveyElement2").css("display","block")
-  } else {
-      console.log("No Quiz");
-    }
-};
-
-setInterval("checkk()", 500)
-
 // Video With Markers Docs
 // http://videojs.com/advanced/
 // http://docs.videojs.com/docs/api/player.html
@@ -43,6 +24,11 @@ setInterval("checkk()", 500)
 
 
 
+////////////////////////////////////////////////////////
+//            Constructing Quiz Questions             //
+////////////////////////////////////////////////////////
+
+// Quiz Question 1
 
 Survey
     .StylesManager
@@ -72,7 +58,7 @@ window.survey1 = new Survey.Model(json1);
 
 $("#surveyElement1").Survey({model: survey1});
 
-//
+// Quiz Questions2
 
 Survey
     .StylesManager
@@ -106,8 +92,8 @@ $("#surveyElement2").Survey({model: survey2});
 
 
 
-
-
+////////////////////////////////////////////////////////
+//            Video Player Interaction                //
 ////////////////////////////////////////////////////////
 $(".vjs-progress-control vjs-control").click(function(){
   $("#surveyElement1").css("display", "none");
@@ -135,4 +121,76 @@ $(".sv_complete_btn").click(function(){
 });
 
 
+
+////////////////////////////////////////////////////////
+//               Logging User Behavior                //
+////////////////////////////////////////////////////////
+
+// from https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+
+var v = document.getElementsByTagName("video")[0];
+
+// Pause Events
+v.addEventListener("pause", function() { console.log("paused at: " + v.currentTime); }, true);
+
+
+// Play Events
+v.addEventListener("play", function() { console.log("play at: " + v.currentTime); }, true);
+
+// Rate Change Events
+v.addEventListener("ratechange", function() { console.log("rate change to: " + v.playbackRate); }, true);
+
+// Seeking Events
+// https://stackoverflow.com/questions/29090378/how-to-get-the-starting-point-of-a-seeking-event-in-html5-video#
+v.addEventListener('timeupdate', function(e){
+var that = this;
+(function(){
+  setTimeout(function(){
+    that.BP=that.currentTime;
+    }, 500);
+  }).call(that);}
+  );
+
+v.addEventListener('seeking', function(e){
+  log('seekFrom = '+this.BP+
+        " seekTo = "+this.currentTime)
+  })
+function log(txt){console.log(txt)}
+
+
+// Tab Visibility
+var tabCount = 0
+document.addEventListener("visibilitychange", function() {
+  console.log( document.visibilityState );
+  video.pause();
+  if(document.visibilityState == "hidden"){
+    tabCount += 1
+    alertify.confirm("You left the tab " + tabCount + " times.", function () {
+          // user clicked "ok"
+      }, function() {
+          // user clicked "cancel"
+    }).set('basic', true).closeOthers();
+  }
+});
+
+
+
+
+////////////////////////////////////////////////////////
+//               Delivering Questions                 //
+////////////////////////////////////////////////////////
+// https://stackoverflow.com/questions/19355952/make-html5-video-stop-at-indicated-time
+v.addEventListener("timeupdate", function(){
+    if(this.currentTime >= 149 && this.currentTime <= 151) {
+        console.log("Quiz");
+        this.pause();
+        $("#surveyElement1").css("display","block")
+    } else if (this.currentTime >=369 && this.currentTime <= 371) {
+        console.log("Quiz");
+        video.pause();
+        $("#surveyElement2").css("display","block")
+    } else {
+      console.log("No Quiz");
+    }
+});
 
