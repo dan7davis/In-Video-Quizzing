@@ -165,7 +165,7 @@ document.addEventListener("visibilitychange", function() {
   video.pause();
   if(document.visibilityState == "hidden"){
     tabCount += 1
-    alertify.confirm("You left the tab " + tabCount + " times.", function () {
+    alertify.confirm("Warning: You left the tab " + tabCount + " times.", function () {
           // user clicked "ok"
       }, function() {
           // user clicked "cancel"
