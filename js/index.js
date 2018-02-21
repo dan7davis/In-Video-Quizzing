@@ -96,30 +96,44 @@ $("#surveyElement2").Survey({model: survey2});
 //            Video Player Interaction                //
 ////////////////////////////////////////////////////////
 $(".vjs-progress-control vjs-control").click(function(){
+  hideQuiz();
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none"); 
 });
 
 
 $(".vjs-control-bar").click(function(){
+  hideQuiz();
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none"); 
 });
 
 
 $("video").click(function(){
+  hideQuiz();
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none"); 
 });
 
 
 $(".sv_complete_btn").click(function(){
-  video.currentTime(curt+2);
+  video.currentTime(v.currentTime+2);
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none");
   video.play(); 
 });
 
+
+
+function hideQuiz(){
+  if($("#surveyElement1").css("display") == "block" || $("#surveyElement2").css("display") == "block"){
+    console.log("hide quiz");
+    $("#surveyElement1").css("display", "none");
+    $("#surveyElement2").css("display", "none");
+    video.currentTime(v.currentTime+2);
+    video.play();
+  }
+}
 
 
 ////////////////////////////////////////////////////////
@@ -131,11 +145,14 @@ $(".sv_complete_btn").click(function(){
 var v = document.getElementsByTagName("video")[0];
 
 // Pause Events
-v.addEventListener("pause", function() { console.log("paused at: " + v.currentTime); }, true);
+v.addEventListener("pause", function() { console.log("pause at: " + v.currentTime); }, true);
 
 
 // Play Events
-v.addEventListener("play", function() { console.log("play at: " + v.currentTime); }, true);
+v.addEventListener("play", function() {
+    console.log("play at: " + v.currentTime);
+  }, true);
+
 
 // Rate Change Events
 v.addEventListener("ratechange", function() { console.log("rate change to: " + v.playbackRate); }, true);
@@ -182,15 +199,104 @@ document.addEventListener("visibilitychange", function() {
 // https://stackoverflow.com/questions/19355952/make-html5-video-stop-at-indicated-time
 v.addEventListener("timeupdate", function(){
     if(this.currentTime >= 149 && this.currentTime <= 151) {
-        console.log("Quiz");
+        // console.log("Quiz");
         this.pause();
-        $("#surveyElement1").css("display","block")
+        $("#surveyElement1").css("display","block");
+        console.log("Question 1 delivered");
     } else if (this.currentTime >=369 && this.currentTime <= 371) {
-        console.log("Quiz");
+        // console.log("Quiz");
         video.pause();
-        $("#surveyElement2").css("display","block")
+        $("#surveyElement2").css("display","block");
+        console.log("Question 2 delivered");
     } else {
-      console.log("No Quiz");
+      // console.log("No Quiz");
     }
 });
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
