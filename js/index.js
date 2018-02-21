@@ -23,6 +23,15 @@
 // https://github.com/peter-hank/video-with-markers
 
 
+// Set up hotkeys
+
+video.ready(function() {
+  this.hotkeys({
+    volumeStep: 0.1,
+    seekStep: 5,
+    enableModifiersForNumbers: false
+  });
+});
 
 ////////////////////////////////////////////////////////
 //            Constructing Quiz Questions             //
