@@ -1,4 +1,5 @@
  
+var actionBody
 
 ////////////////////////////////////////////////////////
 //                Setting Video Markers               //
@@ -124,12 +125,18 @@ $("video").click(function(){
   $("#surveyElement2").css("display", "none"); 
 });
 
-
+var submissions = 0;
 $(".sv_complete_btn").click(function(){
+  submissions++;
   video.currentTime(v.currentTime+2);
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none");
+  actionBody = String("Question Submit " + v.currentTime);
+  sendData();
   video.play(); 
+  if(submissions >=2){
+    $("button").attr('class', 'btn btn-primary');
+  }
 });
 
 
@@ -154,17 +161,28 @@ function hideQuiz(){
 var v = document.getElementsByTagName("video")[0];
 
 // Pause Events
-v.addEventListener("pause", function() { console.log("pause at: " + v.currentTime); }, true);
+v.addEventListener("pause", function() { 
+  console.log("pause at: " + v.currentTime);
+  actionBody = String("pause at: " + v.currentTime);
+  sendData(); 
+}, true);
 
 
 // Play Events
 v.addEventListener("play", function() {
     console.log("play at: " + v.currentTime);
+    actionBody = String("play at: " + v.currentTime);
+    sendData(); 
   }, true);
 
 
 // Rate Change Events
-v.addEventListener("ratechange", function() { console.log("rate change to: " + v.playbackRate); }, true);
+v.addEventListener("ratechange", function() { 
+  console.log("rate change to: " + v.playbackRate);
+  actionBody = String("rate change to: " + v.playbackRate);
+  sendData(); 
+}, true);
+
 
 // Seeking Events
 // https://stackoverflow.com/questions/29090378/how-to-get-the-starting-point-of-a-seeking-event-in-html5-video#
@@ -179,7 +197,10 @@ var that = this;
 
 v.addEventListener('seeking', function(e){
   log('seekFrom = '+this.BP+
-        " seekTo = "+this.currentTime)
+        " seekTo = "+this.currentTime);
+  actionBody = String('seekFrom = '+this.BP+
+        " seekTo = "+this.currentTime);
+  sendData();
   })
 function log(txt){console.log(txt)}
 
@@ -212,11 +233,15 @@ v.addEventListener("timeupdate", function(){
         this.pause();
         $("#surveyElement1").css("display","block");
         console.log("Question 1 delivered");
+        actionBody = String("Question 1 delivered");
+        sendData();
     } else if (this.currentTime >=369 && this.currentTime <= 371) {
         // console.log("Quiz");
         video.pause();
         $("#surveyElement2").css("display","block");
         console.log("Question 2 delivered");
+        actionBody = String("Question 2 delivered");
+        sendData();
     } else {
       // console.log("No Quiz");
     }
@@ -225,22 +250,32 @@ v.addEventListener("timeupdate", function(){
 
 
 
-
-
-
-
-
+////////////////////////////////////////////////////////
+//               Sending Events to Server             //
 ////////////////////////////////////////////////////////
 
+var name = localStorage.getItem("exp_id")
+$("#user").text("You are user: "+ name)
+
+var settings;
+
+function sendData() {
+  settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://crowd-events.herokuapp.com/api/events",
+  "method": "POST",
+  "data": {
+    "name": name,
+    "action": actionBody
+  }
+}
 
 
-
-
-
-
-
-
-
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+}
 
 
 
