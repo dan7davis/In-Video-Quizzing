@@ -63,7 +63,12 @@ var json1 = {
 };
 
 window.survey1 = new Survey.Model(json1);
-
+survey1
+    .onComplete
+    .add(function (result) {
+        actionBody = String("Response 1: " + result.data.car);
+        sendData();
+    });
 
 
 $("#surveyElement1").Survey({model: survey1});
@@ -93,6 +98,12 @@ var json2 = {
 };
 
 window.survey2 = new Survey.Model(json2);
+survey2
+    .onComplete
+    .add(function (result) {
+        actionBody = String("Response 2: " + result.data.car);
+        sendData();
+    });
 
 
 $("#surveyElement2").Survey({model: survey2});
@@ -131,8 +142,6 @@ $(".sv_complete_btn").click(function(){
   video.currentTime(v.currentTime+2);
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none");
-  actionBody = String("Question Submit " + v.currentTime);
-  sendData();
   video.play(); 
   if(submissions >=2){
     $("button").attr('class', 'btn btn-primary');
@@ -206,17 +215,24 @@ function log(txt){console.log(txt)}
 
 
 // Tab Visibility
-var tabCount = 0
+var tabCount = 0;
+var visCount = 0;
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
   video.pause();
   if(document.visibilityState == "hidden"){
     tabCount += 1
+    actionBody = String("hidden " + tabCount);
+    sendData();
     alertify.confirm("Warning: You left the tab " + tabCount + " times.", function () {
           // user clicked "ok"
       }, function() {
           // user clicked "cancel"
     }).set('basic', true).closeOthers();
+  } else {    
+    visCount += 1;
+    actionBody = String("visible " + visCount);
+    sendData();
   }
 });
 
