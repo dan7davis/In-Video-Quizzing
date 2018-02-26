@@ -17,7 +17,7 @@ survey
     .add(function (result) {
         console.log(result.data);
         localStorage.setItem("exp_id", result.data.name)
-        window.location.href = "index.html";
+        window.location.href = "Video-N.html";
     });
 
 $("#surveyElement").Survey({model: survey});

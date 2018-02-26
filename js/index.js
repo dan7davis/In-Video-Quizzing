@@ -205,8 +205,6 @@ var that = this;
   );
 
 v.addEventListener('seeking', function(e){
-  log('seekFrom = '+this.BP+
-        " seekTo = "+this.currentTime);
   actionBody = String('seekFrom = '+this.BP+
         " seekTo = "+this.currentTime);
   sendData();
@@ -216,7 +214,6 @@ function log(txt){console.log(txt)}
 
 // Tab Visibility
 var tabCount = 0;
-var visCount = 0;
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
   video.pause();
@@ -230,8 +227,7 @@ document.addEventListener("visibilitychange", function() {
           // user clicked "cancel"
     }).set('basic', true).closeOthers();
   } else {    
-    visCount += 1;
-    actionBody = String("visible " + visCount);
+    actionBody = String("visible");
     sendData();
   }
 });
@@ -267,11 +263,25 @@ v.addEventListener("timeupdate", function(){
 
 
 ////////////////////////////////////////////////////////
+//               Enable Next Button                   //
+////////////////////////////////////////////////////////
+var timeCount = 0;
+v.addEventListener("timeupdate", function(){
+  timeCount++;
+  if(timeCount >= 20){
+    $("button").attr('class', 'btn btn-primary');
+  }
+});
+
+
+
+////////////////////////////////////////////////////////
 //               Sending Events to Server             //
 ////////////////////////////////////////////////////////
 
 var name = localStorage.getItem("exp_id")
 $("#user").text("You are user: "+ name)
+var videoID = document.title;
 
 var settings;
 
@@ -283,7 +293,8 @@ function sendData() {
   "method": "POST",
   "data": {
     "name": name,
-    "action": actionBody
+    "action": actionBody,
+    "video": videoID
   }
 }
 
