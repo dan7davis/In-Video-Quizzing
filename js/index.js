@@ -266,6 +266,7 @@ v.addEventListener("timeupdate", function(){
 //               Enable Next Button                   //
 ////////////////////////////////////////////////////////
 var timeCount = 0;
+
 v.addEventListener("timeupdate", function(){
   timeCount++;
   if(timeCount >= 20){

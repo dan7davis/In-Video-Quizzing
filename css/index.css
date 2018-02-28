@@ -23,8 +23,16 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#expand-box {
+    width: 100%;
+    padding: 0;
+    border: 2px solid #BBB;
+    margin: 7px 0 0 0;}
 
-
+#token  {
+  font-size: 200 !important;
+  font-family: sans-serif;
+}
 
 /**/
 
