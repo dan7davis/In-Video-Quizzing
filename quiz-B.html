@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quiz-A</title>
+	    <!-- Survey.js -->
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="js/survey.jquery.js"></script>
+    <link rel="stylesheet" href="css/survey.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+
+</head>
+<body>
+
+
+	
+
+	<div id="surveyContainer"></div>
+
+<div id="expand-box">
+
+	<form action="Video-N.html">
+	<button class="btn btn-primary" id="back" style="float: left">Back to Video</button>
+	</form>
+
+	<form action="end.html">
+	<button class="btn btn-primary disabled">Next: Conclusion</button>
+	</form>
+
+</div>
+
+</body>
+
+<script>
+	
+
+
+var surveyJSON = {pages:[
+	{name:"page1",
+	elements:[{
+		type:"radiogroup",
+		name:"question1",
+		title:"When making a prototype in the early phases of design, it is important to:",
+		isRequired:true,
+		choices:[{
+			value:"item1",text:"Simulate all the aspects of your concept at once."},
+			{value:"item2",text:"Determine the goal and make a plan of your prototype."},
+			{value:"item3",text:"Start building the prototype as soon as possible."}]},
+		{type:"radiogroup",
+		name:"question3",
+		title:"What is the first step you need to take after deciding on a goal for your prototype?",
+		isRequired:true,
+		choices:[{
+			value:"item1",text:"Start building and iterating."},
+			{value:"item2",text:"Make a plan."},
+			{value:"item3",text:"Seek advice."},
+			{value:"item4",text:"Decide which materials to use."}]},
+		{type:"radiogroup",
+		name:"question4",
+		title:"Which cutting tool is best for cutting round and curved forms?",
+		isRequired:true,
+		choices:[{
+			value:"item1",text:"Scissors"},
+			{value:"item2",text:"x-acto knife"},
+			{value:"item3",text:"Sand paper"},
+			{value:"item4",text:"Jigsaw"}]}
+			]}
+	]}
+
+function sendDataToServer(survey) {
+    //send Ajax request to your web server.
+    $("button").attr('class', 'btn btn-primary');
+    $("button#back").css('display', 'none');
+}
+
+var survey = new Survey.Model(surveyJSON);
+$("#surveyContainer").Survey({
+    model: survey,
+    onComplete: sendDataToServer
+});
+
+
+</script>
+
+</html>
