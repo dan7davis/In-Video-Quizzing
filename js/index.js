@@ -13,8 +13,8 @@ var actionBody
       //load markers
       video.markers({
         markers: [
-          {time: 150,  text: "Quiz 1"},
-          {time: 370,  text: "Quiz 2"}
+          {time: 166,  text: "Quiz 1"},
+          {time: 318,  text: "Quiz 2"}
         ]
       });
 
@@ -49,14 +49,14 @@ var json1 = {
         {
             type: "radiogroup",
             name: "car",
-            title: "What car are you driving?",
+            title: "What are the 3 aspects of a design we can simulate?",
             isRequired: true,
-            colCount: 4,
+            colCount: 1,
             choices: [
-                "None",
-                "Ford",
-                "Vauxhall",
-                "Volkswagen"
+                "Technical Function, Form, and Operation",
+                "Usage, Technical Function, and Form",
+                "Performance, Validity, and Risk",
+                "Materials, Production, and Price"
             ]
         }
     ]
@@ -84,14 +84,14 @@ var json2 = {
         {
             type: "radiogroup",
             name: "car",
-            title: "Favorite Olympic Event?",
+            title: "According to the narrator, what is the disadvantage of using 3D printing for rapid prototyping?",
             isRequired: true,
-            colCount: 4,
+            colCount: 1,
             choices: [
-                "None",
-                "Ski",
-                "Louge",
-                "Skating"
+                "3D modeling software is expensive and difficult to learn",
+                "It does not allow for manual manipulation of the prototype",
+                "It is not as precise as modeling my hand",
+                "The design needs to be completed in advance"
             ]
         }
     ]
@@ -139,7 +139,7 @@ $("video").click(function(){
 var submissions = 0;
 $(".sv_complete_btn").click(function(){
   submissions++;
-  video.currentTime(v.currentTime+2);
+  video.currentTime(v.currentTime+1);
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none");
   video.play(); 
@@ -240,14 +240,14 @@ document.addEventListener("visibilitychange", function() {
 ////////////////////////////////////////////////////////
 // https://stackoverflow.com/questions/19355952/make-html5-video-stop-at-indicated-time
 v.addEventListener("timeupdate", function(){
-    if(this.currentTime >= 149 && this.currentTime <= 151) {
+    if(this.currentTime >= 166 && this.currentTime <= 167) {
         // console.log("Quiz");
         this.pause();
         $("#surveyElement1").css("display","block");
         console.log("Question 1 delivered");
         actionBody = String("Question 1 delivered");
         sendData();
-    } else if (this.currentTime >=369 && this.currentTime <= 371) {
+    } else if (this.currentTime >=319 && this.currentTime <= 320) {
         // console.log("Quiz");
         video.pause();
         $("#surveyElement2").css("display","block");
