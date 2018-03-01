@@ -285,7 +285,7 @@ var timeCount = 0;
 
 v.addEventListener("timeupdate", function(){
   timeCount++;
-  if(timeCount >= 20){
+  if(timeCount >= 40 && submissions >= 2){
     $("button").attr('class', 'btn btn-primary');
   }
 });
