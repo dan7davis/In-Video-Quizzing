@@ -213,15 +213,20 @@ function log(txt){console.log(txt)}
 
 
 // Tab Visibility
-var tabCount = 0;
+
+var tabCount = Number(localStorage.getItem("tabCount")) - 1;
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
   video.pause();
   if(document.visibilityState == "hidden"){
-    tabCount += 1
+    tabCount += 1;
+    localStorage.setItem("tabCount", tabCount);
     actionBody = String("hidden " + tabCount);
     sendData();
-    alertify.confirm("Warning: You left the tab " + tabCount + " times.", function () {
+    if(tabCount > 4){
+      document.removeChild(document.documentElement);
+    }
+    alertify.confirm("Warning: You left the tab " + tabCount + "/4 times.", function () {
           // user clicked "ok"
       }, function() {
           // user clicked "cancel"
@@ -232,6 +237,17 @@ document.addEventListener("visibilitychange", function() {
   }
 });
 
+
+// Page Loads
+
+$( document ).ready(function() {
+    actionBody = String("Page loaded");
+    sendData();
+    var tabCount = Number(localStorage.getItem("tabCount")) - 1;
+    if(tabCount > 4){
+      document.removeChild(document.documentElement);   
+    }
+});
 
 
 

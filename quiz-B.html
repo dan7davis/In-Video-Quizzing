@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Quiz-A</title>
+	<title>Quiz-B</title>
 	    <!-- Survey.js -->
     <script src="https://unpkg.com/jquery"></script>
     <script src="js/survey.jquery.js"></script>
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/index.css"/>
 
 </head>
+<p id="user"></p>
 <body>
 
 
@@ -19,7 +20,7 @@
 
 <div id="expand-box">
 
-	<form action="Video-N.html">
+	<form action="Video-Q.html">
 	<button class="btn btn-primary" id="back" style="float: left">Back to Video</button>
 	</form>
 
@@ -33,6 +34,31 @@
 
 <script>
 	
+var name = localStorage.getItem("exp_id")
+$("#user").text("You are user: "+ name)
+var videoID = document.title;
+
+var settings;
+
+function sendData() {
+  settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://crowd-events.herokuapp.com/api/events",
+  "method": "POST",
+  "data": {
+    "name": name,
+    "action": actionBody,
+    "video": videoID
+  }
+}
+
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+}
+
 
 
 var surveyJSON = {pages:[
@@ -69,6 +95,8 @@ var surveyJSON = {pages:[
 
 function sendDataToServer(survey) {
     //send Ajax request to your web server.
+    actionBody = JSON.stringify(survey.data);
+    sendData();
     $("button").attr('class', 'btn btn-primary');
     $("button#back").css('display', 'none');
 }
@@ -79,7 +107,49 @@ $("#surveyContainer").Survey({
     onComplete: sendDataToServer
 });
 
+$( document ).ready(function() {
+    actionBody = String("Page loaded");
+    sendData();
+    var tabCount = Number(localStorage.getItem("tabCount")) - 1;
+    if(tabCount > 4){
+      document.removeChild(document.documentElement);	  
+    }
+});
+
+
+
+
+var tabCount = Number(localStorage.getItem("tabCount")) - 1;
+document.addEventListener("visibilitychange", function() {
+  console.log( document.visibilityState );
+  if(document.visibilityState == "hidden"){
+    tabCount += 1;
+    localStorage.setItem("tabCount", tabCount);
+    actionBody = String("hidden " + tabCount);
+    sendData();
+    if(tabCount > 4){
+      document.removeChild(document.documentElement);
+    }
+    alertify.confirm("Warning: You left the tab " + tabCount + "/4 times.", function () {
+          // user clicked "ok"
+      }, function() {
+          // user clicked "cancel"
+    }).set('basic', true).closeOthers();
+  } else {    
+    actionBody = String("visible");
+    sendData();
+  }
+});
+
 
 </script>
+
+<!-- JavaScript -->
+<script src="./js/AlertifyJS-master/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="./js/AlertifyJS-master/build/css/alertify.min.css" />
+<!-- include a theme -->
+<link rel="stylesheet" href="./js/AlertifyJS-master/build/css/themes/semantic.css" />
 
 </html>
