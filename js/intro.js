@@ -31,7 +31,7 @@ var json = {
         {
             name: "name",
             type: "text",
-            title: "Please enter your crowd flower ID:",
+            title: "Please enter the user code provided to you by the task page in CrowdFlower:",
             placeHolder: "12345",
             isRequired: true
         }
@@ -51,4 +51,4 @@ survey
         $("button#back").css('display', 'none');
     });
 
-$("#surveyElement").Survey({model: survey});
+$("#surveyElement").Survey({model: survey});x

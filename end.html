@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Token</title>
 </head>
-
+<p id="user"></p>
 <style>
 	div {
 		font-family: sans-serif;
@@ -19,7 +19,13 @@
 	<br>
 	<br>
 	<br>
-	<div align="center" id="token">6af9sVAEg4</div>
-	
+	<div align="center" id="token"></div>
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/kv.js"></script> 
+	<script>
+		var name = localStorage.getItem("exp_id");
+		$("#user").text("You are user: "+ name);
+		$('#token').text(text[name]);
+	</script>
 </body>
 </html>
