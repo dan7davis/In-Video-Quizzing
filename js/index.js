@@ -246,6 +246,9 @@ $( document ).ready(function() {
     var tabCount = Number(localStorage.getItem("tabCount")) - 1;
     if(tabCount > 4){
       document.removeChild(document.documentElement);   
+    };
+    if(localStorage.getItem("watched1") == "true"){
+      $("button").attr('class', 'btn btn-primary');
     }
 });
 
@@ -286,8 +289,9 @@ var duration = v.duration;
 
 v.addEventListener("timeupdate", function(){
   timeCount++;
-  if(timeCount >= duration * 0.75 && submissions >= 2){
+  if(timeCount >= 400 && submissions >= 2){
     $("button").attr('class', 'btn btn-primary');
+    localStorage.setItem("watched1", true);
   }
 });
 

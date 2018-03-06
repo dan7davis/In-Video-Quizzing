@@ -173,6 +173,9 @@ $( document ).ready(function() {
     var tabCount = Number(localStorage.getItem("tabCount")) - 1;
     if(tabCount > 4){
       document.removeChild(document.documentElement);   
+    };
+    if(localStorage.getItem("watched2") == "true"){
+      $("button").attr('class', 'btn btn-primary');
     }
 });
 
@@ -186,11 +189,13 @@ $( document ).ready(function() {
 //               Enable Next Button                   //
 ////////////////////////////////////////////////////////
 var timeCount = 0;
+var duration = Number(v.duration);
 
 v.addEventListener("timeupdate", function(){
   timeCount++;
-  if(timeCount >= 400){
+  if(timeCount >= 400 && submissions >= 2){
     $("button").attr('class', 'btn btn-primary');
+    localStorage.setItem("watched2", true);
   }
 });
 
