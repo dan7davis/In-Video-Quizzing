@@ -145,6 +145,7 @@ $(".sv_complete_btn").click(function(){
   video.play(); 
   if(submissions >=2){
     $("button").attr('class', 'btn btn-primary');
+    localStorage.setItem("watched1", "true")
   }
 });
 
