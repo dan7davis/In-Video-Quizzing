@@ -290,7 +290,7 @@ var duration = v.duration;
 
 v.addEventListener("timeupdate", function(){
   timeCount++;
-  if(timeCount >= 400 && submissions >= 2){
+  if(timeCount >= 500 && submissions >= 2){
     $("button").attr('class', 'btn btn-primary');
     localStorage.setItem("watched1", true);
   }

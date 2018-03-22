@@ -7,7 +7,7 @@ var actionBody
 
  // load video object
       var video = videojs('example_video_1', {
-        "playbackRates": [ 0.25, 0.5, 1, 1.5, 2]
+        "playbackRates": [ 0.25, 0.5, 1, 1.5]
       });
 
       //load markers
@@ -193,7 +193,7 @@ var duration = Number(v.duration);
 
 v.addEventListener("timeupdate", function(){
   timeCount++;
-  if(timeCount >= 400 && submissions >= 2){
+  if(timeCount >= 750 && submissions >= 2){
     $("button").attr('class', 'btn btn-primary');
     localStorage.setItem("watched2", true);
   }
