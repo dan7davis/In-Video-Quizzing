@@ -37,8 +37,8 @@
 		});
 
 		setTimeout(function() {
-			var id = localStorage.getItem("exp_id");
-			$("#user").text("You are user: "+ localStorage.getItem("exp_id"));
+			var id = localStorage.getItem("exp_id").split("_")[0];
+			$("#user").text("You are user: "+ id);
 			$('#token').text(text[id]);
 			var name = localStorage.getItem("exp_id") + "_" + address;
 			sendData();

@@ -206,7 +206,7 @@ v.addEventListener("timeupdate", function(){
 ////////////////////////////////////////////////////////
 
 var name = localStorage.getItem("exp_id")
-$("#user").text("You are user: "+ name)
+// $("#user").text("You are user: "+ name)
 var videoID = document.title;
 
 var settings;
