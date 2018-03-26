@@ -27,9 +27,55 @@
 	<script src="js/jquery-2.0.3.min.js"></script>
 	<script src="js/kv.js"></script> 
 	<script>
-		var name = localStorage.getItem("exp_id");
+
+		$.getJSON('//freegeoip.net/json/?callback=?', function(data) {
+			window.address = data.ip
+		  	console.log(address);
+		});
+
+		var name = localStorage.getItem("exp_id") + "_" + address;
 		$("#user").text("You are user: "+ name);
 		$('#token').text(text[name]);
 	</script>
 </body>
+
+
+<script>
+	
+$( document ).ready(function() {
+	actionBody = String("Page loaded");
+	sendData();
+});
+
+
+
+
+
+var videoID = document.title;
+
+var settings;
+
+function sendData() {
+  settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://crowd-events.herokuapp.com/api/events",
+  "method": "POST",
+  "data": {
+    "name": name,
+    "action": actionBody,
+    "video": videoID
+  }
+}
+
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
+}
+
+
+</script>
+
+
 </html>
