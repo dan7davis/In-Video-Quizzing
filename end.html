@@ -37,45 +37,47 @@
 		$("#user").text("You are user: "+ name);
 		$('#token').text(text[name]);
 	</script>
+
+	<script>
+	
+		$( document ).ready(function() {
+			actionBody = String("Page loaded");
+			sendData();
+		});
+
+
+
+
+
+		var videoID = document.title;
+
+		var settings;
+
+		function sendData() {
+		  settings = {
+		  "async": true,
+		  "crossDomain": true,
+		  "url": "https://crowd-events.herokuapp.com/api/events",
+		  "method": "POST",
+		  "data": {
+		    "name": name,
+		    "action": actionBody,
+		    "video": videoID
+		  }
+		}
+
+
+		  $.ajax(settings).done(function (response) {
+		    console.log(response);
+		  });
+		}
+
+
+	</script>
 </body>
 
 
-<script>
-	
-$( document ).ready(function() {
-	actionBody = String("Page loaded");
-	sendData();
-});
 
-
-
-
-
-var videoID = document.title;
-
-var settings;
-
-function sendData() {
-  settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "https://crowd-events.herokuapp.com/api/events",
-  "method": "POST",
-  "data": {
-    "name": name,
-    "action": actionBody,
-    "video": videoID
-  }
-}
-
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  });
-}
-
-
-</script>
 
 
 </html>
