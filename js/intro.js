@@ -44,7 +44,7 @@ survey
     .onComplete
     .add(function (result) {
         console.log(result.data);
-        localStorage.setItem("exp_id", result.data.name);
+        localStorage.setItem("exp_id", String(result.data.name) + "_" + address);
         name = String(result.data.name) + "_" + address;
         sendData();
         $("button").attr('class', 'btn btn-primary');
