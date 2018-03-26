@@ -40,13 +40,13 @@
 	
 		$( document ).ready(function() {
 			actionBody = String("Page loaded");
-			sendData();
 		});
 
 		setTimeout(function() {
 			var name = localStorage.getItem("exp_id") + "_" + address;
 			$("#user").text("You are user: "+ localStorage.getItem("exp_id"));
 			$('#token').text(text[name]);
+			sendData();
 		}, 1000)
 
 		
