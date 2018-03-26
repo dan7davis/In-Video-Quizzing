@@ -143,10 +143,10 @@ $(".sv_complete_btn").click(function(){
   $("#surveyElement1").css("display", "none");
   $("#surveyElement2").css("display", "none");
   video.play(); 
-  if(submissions >=2){
-    $("button").attr('class', 'btn btn-primary');
-    localStorage.setItem("watched1", "true")
-  }
+  // if(submissions >=2){
+  //   $("button").attr('class', 'btn btn-primary');
+  //   localStorage.setItem("watched1", "true")
+  // }
 });
 
 
