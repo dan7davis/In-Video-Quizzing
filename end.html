@@ -44,8 +44,9 @@
 
 		setTimeout(function() {
 			var name = localStorage.getItem("exp_id") + "_" + address;
+			var id = localStorage.getItem("exp_id");
 			$("#user").text("You are user: "+ localStorage.getItem("exp_id"));
-			$('#token').text(text[name]);
+			$('#token').text(text[id]);
 			sendData();
 		}, 1000)
 
