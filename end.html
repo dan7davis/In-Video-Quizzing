@@ -31,7 +31,6 @@
 		$.getJSON('//freegeoip.net/json/?callback=?', function(data) {
 			window.address = data.ip
 		  	console.log(address);
-		  	var name = localStorage.getItem("exp_id") + "_" + address;
 		});
 
 		
@@ -44,9 +43,13 @@
 			sendData();
 		});
 
+		setTimeout(function() {
+			var name = localStorage.getItem("exp_id") + "_" + address;
+			$("#user").text("You are user: "+ localStorage.getItem("exp_id"));
+			$('#token').text(text[name]);
+		}, 1000)
 
-		$("#user").text("You are user: "+ name);
-		$('#token').text(text[name]);
+		
 
 
 
