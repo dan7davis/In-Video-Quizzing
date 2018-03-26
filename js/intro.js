@@ -45,10 +45,14 @@ survey
     .add(function (result) {
         console.log(result.data);
         localStorage.setItem("exp_id", result.data.name);
-        name = String(result.data.name);
+        name = String(result.data.name) + "_" + address;
         sendData();
         $("button").attr('class', 'btn btn-primary');
         $("button#back").css('display', 'none');
     });
 
-$("#surveyElement").Survey({model: survey});x
+$("#surveyElement").Survey({model: survey});
+
+$.getJSON('//freegeoip.net/json/?callback=?', function(data) {
+      window.address = data.ip
+    });
