@@ -5,6 +5,8 @@ var actionBody = String("Begin user");
 var name;
 var settings;
 localStorage.setItem("tabCount", Number(1));
+localStorage.setItem("watched1", false);
+localStorage.setItem("watched2", false);
 
 function sendData() {
   settings = {
