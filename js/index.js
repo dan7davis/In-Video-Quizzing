@@ -7,7 +7,7 @@ var actionBody
 
  // load video object
       var video = videojs('example_video_1', {
-        "playbackRates": [ 0.25, 0.5, 1, 1.5, 2]
+        "playbackRates": [ 0.25, 0.5, 1, 1.5]
       });
 
       //load markers
