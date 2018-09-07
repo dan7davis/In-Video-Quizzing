@@ -5,7 +5,6 @@ In-Video Quizzing System presented in the CSCW 2018 conference paper: "valuating
 
 
 
-Davis, D., Hauff, C., Houben, G.J. (2018) Evaluating Crowdworkers as a Proxy for Online Learners in Video-Based Learning Contexts. In Proceedings of  the 21st ACM Conference on Computer-Supported Cooperative Work and Social Computing, CSCW ’18.
-
+*Dan Davis, Claudia Hauff, and Geert-Jan Houben. 2018. Evaluating Crowdworkers as a Proxy for Online Learners in Video-Based Learning Contexts. Proc. ACM Hum.-Comput. Interact. 2, CSCW, Article 42 (November 2018)*
 
 
